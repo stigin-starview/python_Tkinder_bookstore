@@ -1,2 +1,2 @@
-# python_Tkinder_bookstore
-A python Tkinder application where you store book informations.
+# python_Tkinter_bookstore
+A python Tkinter application where you store book informations.
