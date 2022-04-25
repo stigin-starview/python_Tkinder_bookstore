@@ -1,6 +1,10 @@
 from tkinter import *
 from tkinter import messagebox
-import backend
+
+from h11 import Data
+from backend import Database
+
+database = Database()
 
 window= Tk()
 # window.maxsize(width=40, height=15)
@@ -30,19 +34,19 @@ def deleteTextBox():
 def dbView():
     # Delete everything in the box
     displayList.delete(0, END)
-    for row in backend.view():
+    for row in database.view():
         displayList.insert(END, row)
 
 
 def dbSearch():
     displayList.delete(0, END)
-    for row in backend.search(entryTitle.get(), entryAuthor.get(),
+    for row in database.search(entryTitle.get(), entryAuthor.get(),
                                   entryYear.get(), entryIsbn.get()):
                                   displayList.insert(END, row)
     
 def dbAdd():
     displayList.delete(0, END)
-    backend.insert(entryTitle.get(), entryAuthor.get(),
+    database.insert(entryTitle.get(), entryAuthor.get(),
                                   entryYear.get(), entryIsbn.get())
     displayList.insert(END, (entryTitle.get(), entryAuthor.get(),
                                   entryYear.get(), entryIsbn.get()))
@@ -51,7 +55,7 @@ def dbAdd():
     deleteTextBox()
 
 def dbUpdate():
-    backend.update(selectedTuple[0], entryTitle.get(), entryAuthor.get(),
+    database.update(selectedTuple[0], entryTitle.get(), entryAuthor.get(),
                                   entryYear.get(), entryIsbn.get())
     messagebox.showinfo("Sucess", "Book updated")
     dbView()
@@ -59,7 +63,7 @@ def dbUpdate():
     
 
 def dbDelete():
-    backend.delete(selectedTuple[0])
+    database.delete(selectedTuple[0])
     dbView()
     deleteTextBox()
     messagebox.showinfo("Sucess", "Book removed")
